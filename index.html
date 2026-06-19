@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Drawing App</title>
+<style>
+body{
+    margin:0;
+    background:#111;
+    color:white;
+    text-align:center;
+    font-family:Arial;
+}
+.toolbar{
+    padding:10px;
+}
+canvas{
+    background:white;
+    border:3px solid black;
+}
+button,input{
+    padding:10px;
+    margin:5px;
+}
+</style>
+</head>
+<body>
+
+<h1>Drawing App</h1>
+
+<div class="toolbar">
+    <input type="color" id="colorPicker">
+    <button onclick="clearCanvas()">Clear</button>
+</div>
+
+<canvas id="canvas" width="800" height="500"></canvas>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const colorPicker = document.getElementById('colorPicker');
+
+let drawing = false;
+
+canvas.addEventListener('mousedown', ()=> drawing = true);
+canvas.addEventListener('mouseup', ()=> drawing = false);
+canvas.addEventListener('mousemove', draw);
+
+function draw(e){
+    if(!drawing) return;
+
+    ctx.fillStyle = colorPicker.value;
+    ctx.beginPath();
+    ctx.arc(e.offsetX, e.offsetY, 5, 0, Math.PI*2);
+    ctx.fill();
+}
+
+function clearCanvas(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+}
+</script>
+
+</body>
+</html>
